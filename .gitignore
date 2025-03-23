@@ -40,4 +40,28 @@ env/
 
 # OS specific files
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Test files
+test_files/
+test/
+
+# Add example test files structure to repo but ignore contents
+!test_files/
+!test_files/README.md
+!test_files/tests/
+!test_files/tests/*/
+!test_files/tests/*/README.md
+!test_files/input/
+!test_files/output/
+test_files/input/*
+test_files/output/*
+test_files/tests/*/*.epub
+test_files/tests/*/*.md
+test_files/tests/*/*.pdf
+
+# But keep README.md files
+!test_files/README.md
+!test_files/input/README.md
+!test_files/output/README.md
+!test_files/tests/*/README.md 
