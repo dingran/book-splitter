@@ -1,0 +1,4 @@
+ebooklib>=0.17.1
+beautifulsoup4>=4.9.3
+nltk>=3.6.0
+html2text>=2020.1.16 
