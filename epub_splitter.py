@@ -8,6 +8,36 @@ import os
 import sys
 from epub_processor import EPUBProcessor
 
+def split_epub_to_epub(input_file, max_words=80000, output_dir='.', strict_chapters=False, verbose=False):
+    """
+    Split an EPUB file into multiple EPUB files.
+    
+    Args:
+        input_file: Path to the input EPUB file
+        max_words: Maximum words per output file
+        output_dir: Directory for output files
+        strict_chapters: Whether to split only at chapter boundaries
+        verbose: Whether to print verbose output
+        
+    Returns:
+        List of paths to the created EPUB files
+    """
+    try:
+        processor = EPUBProcessor(
+            input_file=input_file,
+            max_words=max_words,
+            output_dir=output_dir,
+            strict_chapters=strict_chapters,
+            verbose=verbose
+        )
+        
+        return processor.process()
+    except Exception as e:
+        if verbose:
+            import traceback
+            traceback.print_exc()
+        raise Exception(f"Error processing EPUB: {str(e)}")
+
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Split a large EPUB file into smaller parts')
@@ -59,15 +89,13 @@ def main():
         sys.exit(1)
     
     try:
-        processor = EPUBProcessor(
-            input_file=args.input_file,
-            max_words=args.max_words,
-            output_dir=args.output_dir,
-            strict_chapters=args.strict_chapters,
-            verbose=args.verbose
+        result = split_epub_to_epub(
+            args.input_file,
+            args.max_words,
+            args.output_dir,
+            args.strict_chapters,
+            args.verbose
         )
-        
-        result = processor.process()
         
         if args.verbose:
             print(f"\nProcessing complete. Created {len(result)} output files:")
