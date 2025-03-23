@@ -1,4 +1,4 @@
-# EPUB and PDF Splitter
+# Book Splitter
 
 A set of command-line tools to split large EPUB and PDF books into smaller, more manageable parts.
 
@@ -27,8 +27,8 @@ A set of command-line tools to split large EPUB and PDF books into smaller, more
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/epub_splitter.git
-cd epub_splitter
+git clone https://github.com/dingran/book-splitter.git
+cd book-splitter
 ```
 
 2. Create and activate a virtual environment (recommended):
@@ -96,7 +96,7 @@ This will split `my_book.pdf` into multiple markdown (.md) files with a maximum 
 
 ```
 usage: splitter.py [-h] [--output-format {markdown,epub,pdf}] [--max-words MAX_WORDS] 
-                   [--output-dir OUTPUT_DIR] [--strict-boundaries] [--verbose] input_file
+                  [--output-dir OUTPUT_DIR] [--strict-boundaries] [--verbose] input_file
 
 Split a book file (EPUB or PDF) into multiple parts
 
@@ -106,11 +106,11 @@ positional arguments:
 optional arguments:
   -h, --help            Show this help message and exit
   --output-format {markdown,epub,pdf}
-                        Output format (default: markdown)
+                       Output format (default: markdown)
   --max-words MAX_WORDS
-                        Maximum words per output file (default: 80000)
+                       Maximum words per output file (default: 80000)
   --output-dir OUTPUT_DIR
-                        Directory for output files (default: current directory)
+                       Directory for output files (default: current directory)
   --strict-boundaries   Only split at chapter/section boundaries when possible
   --verbose             Print detailed processing information
 ```
@@ -148,6 +148,55 @@ Use the unified splitter to convert an EPUB to markdown with custom word count:
 ```bash
 python splitter.py --output-format markdown --max-words 50000 my_book.epub
 ```
+
+## Project Structure
+
+The project includes these main components:
+
+- **`splitter.py`** - Unified tool that handles both EPUB and PDF conversion to various formats
+  - Serves as the main entry point with a standardized interface
+  - Can process both EPUB and PDF files as input
+  - Supports multiple output formats (markdown, EPUB, with PDF planned for future)
+  - Provides a consistent command-line interface for all operations
+
+- **`epub_splitter.py`** - Tool for splitting EPUB files into multiple EPUB files
+  - Contains the `split_epub_to_epub` function for processing EPUBs
+  - Maintains chapter boundaries and book structure
+  - Preserves metadata, CSS, images, and other assets from the original EPUB
+
+- **`epub_to_markdown.py`** - Tool for converting EPUB files to markdown
+  - Extracts chapter content from EPUB files
+  - Formats the content as markdown with proper headers and links
+  - Creates tables of contents for each output file
+  - Splits content into multiple files based on word count
+
+- **`pdf_to_markdown.py`** - Tool for converting PDF files to markdown
+  - Extracts text from PDF pages using multiple extraction methods for accuracy
+  - Detects section boundaries where possible
+  - Preserves page numbers in the output markdown
+  - Cleans up common OCR and formatting issues
+
+- **`epub_processor.py`** - Core library for handling EPUB processing
+  - Contains the `EPUBProcessor` class that manages EPUB manipulation
+  - Handles chapter extraction, word counting, and split point determination
+  - Preserves metadata and assets between split files
+  - Used by epub_splitter.py to perform the actual EPUB splitting
+
+- **`requirements.txt`** - Required Python packages for running the tools
+- **`LICENSE`** - MIT License for the project
+- **`technical_design.md`** - Technical design documentation explaining architecture decisions
+
+## Code Organization
+
+The codebase is modular and follows these design principles:
+
+1. **Separation of concerns**: Each file focuses on a specific task (EPUB splitting, PDF processing, etc.)
+2. **Common interfaces**: Similar functions across files follow the same parameter patterns
+3. **Unified frontend**: The `splitter.py` script provides a single entry point for all functionality
+4. **Error handling**: Comprehensive error checking with informative messages
+5. **Documentation**: Detailed docstrings and command-line help
+
+The unified interface in `splitter.py` makes it easy to use for most common tasks, while the specialized scripts provide more tailored functionality for specific use cases.
 
 ## Limitations
 
