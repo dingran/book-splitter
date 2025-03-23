@@ -42,7 +42,7 @@ env/
 .DS_Store
 Thumbs.db
 
-# Test files
+# Test files - completely ignore
 test_files/
 test/
 
