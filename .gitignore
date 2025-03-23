@@ -42,26 +42,26 @@ env/
 .DS_Store
 Thumbs.db
 
-# Test files - completely ignore
-test_files/
-test/
+# Test files - completely ignore the test_files directory
+/test_files/
+/test/
 
-# Add example test files structure to repo but ignore contents
-!test_files/
-!test_files/README.md
-!test_files/tests/
-!test_files/tests/*/
-!test_files/tests/*/README.md
-!test_files/input/
-!test_files/output/
-test_files/input/*
-test_files/output/*
-test_files/tests/*/*.epub
-test_files/tests/*/*.md
-test_files/tests/*/*.pdf
+# The following pattern was causing issues - commenting out
+# !test_files/
+# !test_files/README.md
+# !test_files/tests/
+# !test_files/tests/*/
+# !test_files/tests/*/README.md
+# !test_files/input/
+# !test_files/output/
+# test_files/input/*
+# test_files/output/*
+# test_files/tests/*/*.epub
+# test_files/tests/*/*.md
+# test_files/tests/*/*.pdf
 
 # But keep README.md files
-!test_files/README.md
-!test_files/input/README.md
-!test_files/output/README.md
-!test_files/tests/*/README.md 
+# !test_files/README.md
+# !test_files/input/README.md
+# !test_files/output/README.md
+# !test_files/tests/*/README.md 
